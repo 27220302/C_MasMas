@@ -1,0 +1,23 @@
+namespace ClassLibrary2
+{
+    public class Class1
+    {
+        // Genera una contraseña segura de la longitud especificada
+        public string GenerarContrasenaSegura(int longitud = 12)
+        {
+            const string caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+=<>?";
+            var bytes = new byte[longitud];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(bytes);
+
+            var sb = new StringBuilder(longitud);
+            for (int i = 0; i < longitud; i++)
+            {
+                int idx = bytes[i] % caracteres.Length;
+                sb.Append(caracteres[idx]);
+            }
+            return sb.ToString();
+        }
+    }
+}
+
